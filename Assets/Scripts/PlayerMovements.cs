@@ -27,28 +27,28 @@ public class PlayerMovements : MonoBehaviour
 		
 			if (Input.GetKey(KeyCode.UpArrow))
 			{
-				transform.position += new Vector3(0, 0, -PS.speed);
+				transform.position += new Vector3(0, 0, PS.speed);
 				anims.SetBool("isWalk", true);
 			}
 
 			if (Input.GetKey(KeyCode.DownArrow))
 			{
-				transform.position += new Vector3(0, 0, PS.speed);
+				transform.position += new Vector3(0, 0, -PS.speed);
 				anims.SetBool("isWalk", true);
 			}
 
 			if (Input.GetKey(KeyCode.LeftArrow))
 			{
-				transform.position += new Vector3(PS.speed, 0, 0);
+				transform.position += new Vector3(-PS.speed, 0, 0);
 				anims.SetBool("isWalk", true);				
-				spritix.flipX = false;				
+				spritix.flipX = true;				
 			}
 
 			if (Input.GetKey(KeyCode.RightArrow))
 			{
-				transform.position += new Vector3(-PS.speed, 0, 0);
+				transform.position += new Vector3(PS.speed, 0, 0);
 				anims.SetBool("isWalk", true);
-				spritix.flipX = true;
+				spritix.flipX = false;
 			}
 			
 		if(otherPos != playerPos)
@@ -64,6 +64,7 @@ public class PlayerMovements : MonoBehaviour
 	void LateUpdate()
 	{
 		otherPos = playerPos;
+		anims.SetBool("isHurt", false);
 	}
 		
 }

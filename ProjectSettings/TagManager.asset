@@ -7,6 +7,9 @@ TagManager:
   - Score
   - Script
   - Monster
+  - Experience
+  - Weapon
+  - Canvas
   layers:
   - Default
   - TransparentFX

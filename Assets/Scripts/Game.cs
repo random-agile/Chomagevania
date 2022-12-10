@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Game : MonoBehaviour
 {
 	public GameObject ghostPref;
+	public GameObject ghostRarePref;
 	int cooldownSpawn;
 	public int cooldownRate;
 	Vector3 randomPos;
 	public int nombre;
+	public float timer;
+	public TextMeshProUGUI timerText;
+	
 	
 	void Start()
 	{
@@ -17,16 +22,50 @@ public class Game : MonoBehaviour
 	}
 	
     void Update()
-    {
-	    cooldownSpawn += Random.Range(1,3);
+	{		
+	    cooldownSpawn += Random.Range(1,5);
 	    
 	    if(cooldownSpawn >= cooldownRate)
-	    {	    	
-	    	randomPos = new Vector3(Random.Range(-10,10),0,Random.Range(-10,10));
-	    	Instantiate(ghostPref, randomPos, Quaternion.identity);
-		    cooldownSpawn = 0;
+	    {	
+	    	if(Random.Range(1,100) == 25)
+	    	{
+		    	randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
+		    	Instantiate(ghostRarePref, randomPos, Quaternion.identity);
+		    	cooldownSpawn = 0;	
+		    
+	    	}
+	    	else
+	    	{
+		    	randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
+	    		Instantiate(ghostPref, randomPos, Quaternion.identity);
+		    	cooldownSpawn = 0;		    	    		
+	    	}
 	    }
 	    
-	    Debug.Log(cooldownSpawn);
+	    timer += Time.deltaTime;
+	    TimerDisplay(timer);
+
     }
+
+	void TimerDisplay(float displayTime)
+	{
+		displayTime += 1;
+		float minutes = Mathf.FloorToInt(displayTime / 60);
+		float seconds = Mathf.FloorToInt(displayTime % 60);
+		timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+	}
+	
+	public int RandomExcept(int minus, int maxus, int zero, int one, int two, int three, int four, int negOne, int negTwo, int negThree, int negFour)
+	{
+		int randomNbr = zero;
+		
+		while(randomNbr == zero || randomNbr == one || randomNbr == two || randomNbr == three || randomNbr == four || randomNbr == negOne || randomNbr == negTwo || randomNbr == negThree || randomNbr == negFour)
+		{
+			randomNbr = Random.Range(minus,maxus);
+		}
+		
+		return randomNbr;
+	}
 }
+    
+
