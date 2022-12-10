@@ -11,11 +11,13 @@ public class PlayerStats : MonoBehaviour
 	public int level;
 	public int hp;
 	public int hpMax;
-	public int exp;
-	public int expMax;	
+	public float exp;
+	public float expMax;	
 	public float speed;
 	public int power;
 	public int defense;
+	
+	public float WeaponSpeed;
 	
 	[Header("Gear")]
 	public List<GameObject> Weapons;
@@ -24,7 +26,7 @@ public class PlayerStats : MonoBehaviour
 	[Header("Others")]
 	public int golds;
 	public int kills;
-	int exprests;
+	float exprests;
 	
 	
 	[Header("UI Elements")]
@@ -63,8 +65,15 @@ public class PlayerStats : MonoBehaviour
 			exprests = exp - expMax;
 			exp = 0;
 			expSlider.value = 0 + exprests;
-			expMax = expMax * 2;
+			expMax = expMax * 1.25f;
 			expSlider.maxValue = expMax;
+			hpMax+= 5;
+			hp+=5;
+			hpSlider.maxValue = hpMax;
+			hpSlider.value = hp;
+			speed += 0.0025f;
+			power +=1;
+			WeaponSpeed*=1.25f;
 		}
 	}
 	
@@ -82,9 +91,18 @@ public class PlayerStats : MonoBehaviour
 		
 		if(other.transform.tag == "Experience")
 		{
+			if(other.transform.name == "ExpSmall(Clone)")
+			{
 			exp += 2;
 			expSlider.value = exp;
 			AS.PlayOneShot(AC, 1f);
+			}
+			else if(other.transform.name == "ExpMedium(Clone)")
+			{
+				exp += 50;
+				expSlider.value = exp;
+				AS.PlayOneShot(AC, 1f);
+			}
 		}
 	}
 

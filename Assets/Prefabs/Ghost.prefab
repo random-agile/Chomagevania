@@ -116,9 +116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4cbf038cbf6b06499bd16eeb9f535f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
-  speed: 0.01
+  hp: 5
+  speed: 0.015
   power: 5
+  defense: 0
   exp: 2
   gold: 0
   experience: {fileID: 2862220107509951034, guid: d7aaab3710db1544ba8700ad96d1b465, type: 3}

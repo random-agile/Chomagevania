@@ -10,10 +10,16 @@ public class RotateBall : MonoBehaviour
 	[Header("Sound")]
 	public AudioSource AS;
 	public AudioClip AC;
+	PlayerStats PS;
+	
+	void Start()
+	{
+		PS = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+	}
 
 	void Update()
 	{
-		transform.RotateAround(playerPos.position, -Vector3.up, rotationSpeed * Time.deltaTime);
+		transform.RotateAround(playerPos.position, -Vector3.up, PS.WeaponSpeed * Time.deltaTime);
 	}
 	
 	void OnTriggerEnter(Collider other)

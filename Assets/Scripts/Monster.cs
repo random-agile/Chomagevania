@@ -9,6 +9,7 @@ public class Monster : MonoBehaviour
 	public int hp;
 	public float speed;
 	public int power;
+	public int defense;
 	public int exp;
 	public int gold;
 	
@@ -19,39 +20,39 @@ public class Monster : MonoBehaviour
 	TextMeshProUGUI killText;
 	PlayerStats PS;
 	Animator anims;
-	bool isHit;
 	
 	void Start()
 	{
 		playerPos = GameObject.FindWithTag("Player").GetComponent<Transform>();
 		PS = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
 		killText = GameObject.FindWithTag("Score").GetComponent<TextMeshProUGUI>();
-		anims = gameObject.GetComponent<Animator>();
-		
+		anims = gameObject.GetComponent<Animator>();		
 	}
+	
     void Update()
 	{
-		if(!isHit)
-		{
-			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
-		}
+			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);	
 	}
     
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.transform.tag == "Weapon")
 		{
-			isHit = true;
 			GameObject go = Instantiate(damagePops,transform.position, Quaternion.identity);
-			go.GetComponentInChildren<TextMesh>().text = 5.ToString();
+			go.GetComponentInChildren<TextMesh>().text = (PS.power-defense).ToString();
+			hp -= (PS.power-defense);
 			
-			if(Random.Range(1,4) == 2)
+			if(hp <= 0)
 			{
-				Instantiate(experience,transform.position, Quaternion.identity);
+				gameObject.GetComponent<SphereCollider>().enabled = false;
+				if(Random.Range(1,3) == 2)
+				{
+					Instantiate(experience,transform.position, Quaternion.identity);
+				}
+				PS.kills++;
+				killText.text = PS.kills.ToString();
+				anims.SetBool("isDead", true);
 			}
-			PS.kills++;
-			killText.text = PS.kills.ToString();
-			anims.SetBool("isDead", true);
 		}
 	}
 	
