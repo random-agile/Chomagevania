@@ -18,29 +18,54 @@ public class Monster : MonoBehaviour
 	public GameObject experience;
 	public GameObject damagePops;
 	TextMeshProUGUI killText;
-	PlayerStats PS;
+	PlayerStats PS; 
 	Animator anims;
+	SpriteRenderer spriteRenderer;
+	bool isStun;
+	int stunCooldown;
+	ParticleSystem hitFx;
 	
 	void Start()
 	{
 		playerPos = GameObject.FindWithTag("Player").GetComponent<Transform>();
 		PS = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
 		killText = GameObject.FindWithTag("Score").GetComponent<TextMeshProUGUI>();
-		anims = gameObject.GetComponent<Animator>();		
+		anims = gameObject.GetComponent<Animator>();	
+		spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+		hitFx = gameObject.GetComponentInChildren<ParticleSystem>();
 	}
 	
     void Update()
 	{
-			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);	
+		if(isStun)
+		{
+			spriteRenderer.color = Color.red;
+			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed*-4);
+			stunCooldown++;
+			if(stunCooldown >= 10)
+			{
+				isStun = false;
+				stunCooldown = 0;
+				spriteRenderer.color = Color.white;
+			}
+		}
+		else
+		{
+			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
+		}
+		
+		spriteRenderer.flipX = playerPos.transform.position.x < this.transform.position.x;	
 	}
     
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.transform.tag == "Weapon")
 		{
+			hitFx.Play();
+			isStun = true;
 			GameObject go = Instantiate(damagePops,transform.position, Quaternion.identity);
-			go.GetComponentInChildren<TextMesh>().text = (PS.power-defense).ToString();
-			hp -= (PS.power-defense);
+			go.GetComponentInChildren<TextMesh>().text = (PS.power-defense + PS.meditateDamage).ToString();
+			hp -= (PS.power-defense) + PS.meditateDamage;
 			
 			if(hp <= 0)
 			{

@@ -31,21 +31,21 @@ public class Game : MonoBehaviour
 	    	if(Random.Range(1,100) == 25 && timer >= 60)
 	    	{
 		    	randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
-		    	Instantiate(monstersPref[2], randomPos, Quaternion.identity);
-		    	cooldownSpawn = 0;	
+		    	Instantiate(monstersPref[0], randomPos, Quaternion.identity);
+		    	cooldownSpawn = 0;
 		    
 	    	}
 	    	
 		    if(timer >= 60)
 		    {
 		    	randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
-		    	Instantiate(monstersPref[Random.Range(0,2)], randomPos, Quaternion.identity);
+		    	Instantiate(monstersPref[Random.Range(1,3)], randomPos, Quaternion.identity);
 		    	cooldownSpawn = 0;	
 		    }
 	    	else
 	    	{
 		    	randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
-		    	Instantiate(monstersPref[0], randomPos, Quaternion.identity);
+		    	Instantiate(monstersPref[Random.Range(1,4)], randomPos, Quaternion.identity);
 		    	cooldownSpawn = 0;		    	    		
 	    	}
 	    }

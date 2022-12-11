@@ -17,6 +17,9 @@ public class PlayerStats : MonoBehaviour
 	public int power;
 	public int defense;
 	
+	public bool isMeditate;
+	public int meditateDamage;
+	
 	public float WeaponSpeed;
 	
 	[Header("Gear")]
@@ -45,6 +48,7 @@ public class PlayerStats : MonoBehaviour
 	[Header("Animations Effects")]
 	public Animator anims;
 	public MMFeedbacks cameraFeed;
+	public ParticleSystem powerUp;
 	
 	
 	void Awake()
@@ -57,8 +61,18 @@ public class PlayerStats : MonoBehaviour
 	
 	void Update()
 	{
+		if(isMeditate)
+		{
+			meditateDamage = 10;
+		}
+		else
+		{
+			meditateDamage = 0;
+		}
+		
 		if(exp >= expMax)
 		{
+			powerUp.Play();
 			AS.PlayOneShot(ACDe, 1f);
 			level++;
 			lvlCount.text = "Lv. " + level.ToString();
@@ -71,6 +85,7 @@ public class PlayerStats : MonoBehaviour
 			hp+=5;
 			hpSlider.maxValue = hpMax;
 			hpSlider.value = hp;
+			hpCount.text = hp.ToString();
 			speed += 0.0025f;
 			power +=1;
 			WeaponSpeed*=1.25f;
@@ -84,7 +99,7 @@ public class PlayerStats : MonoBehaviour
 			hp -= 5;
 			hpSlider.value = hp;
 			hpCount.text = hp.ToString();
-			AS.PlayOneShot(ACDC, 0.5f);
+			AS.PlayOneShot(ACDC, 0.33f);
 			anims.SetBool("isHurt", true);
 			cameraFeed?.PlayFeedbacks();
 		}

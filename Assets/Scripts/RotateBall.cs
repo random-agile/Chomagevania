@@ -6,6 +6,7 @@ public class RotateBall : MonoBehaviour
 {
 	public Transform playerPos;
 	public float rotationSpeed = 20f;
+	float meditateBoost;
 	
 	[Header("Sound")]
 	public AudioSource AS;
@@ -19,14 +20,23 @@ public class RotateBall : MonoBehaviour
 
 	void Update()
 	{
-		transform.RotateAround(playerPos.position, -Vector3.up, PS.WeaponSpeed * Time.deltaTime);
+		if(PS.isMeditate)
+		{
+			meditateBoost = 2f;
+		}
+		else
+		{
+			meditateBoost = 1f;
+		}
+		
+		transform.RotateAround(playerPos.position, -Vector3.up, PS.WeaponSpeed * Time.deltaTime * meditateBoost);
 	}
 	
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.transform.tag == "Monster")
 		{
-			AS.PlayOneShot(AC, 0.1f);
+			AS.PlayOneShot(AC, 0.125f);
 		}
 	}
 	
