@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ExpBehaviour : MonoBehaviour
 {
-	bool isAttracted;
 	float distance;
 	Transform playerPos;
 	
@@ -23,7 +22,7 @@ public class ExpBehaviour : MonoBehaviour
 		}
 	}
     
-	void OnTriggerEnter(Collider other)
+	void OnCollisionEnter(Collision other)
 	{
 		if(other.transform.tag == "Player")
 		{

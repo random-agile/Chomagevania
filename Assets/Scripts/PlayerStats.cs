@@ -49,6 +49,9 @@ public class PlayerStats : MonoBehaviour
 	public Animator anims;
 	public MMFeedbacks cameraFeed;
 	public ParticleSystem powerUp;
+	public ParticleSystem hitUp;
+	
+	public Rigidbody rb;
 	
 	
 	void Awake()
@@ -92,20 +95,23 @@ public class PlayerStats : MonoBehaviour
 		}
 	}
 	
-	void OnTriggerEnter(Collider other)
+	void OnCollisionEnter(Collision other)
 	{
 		if(other.transform.tag == "Monster")
 		{
+			rb.Sleep();
 			hp -= 5;
 			hpSlider.value = hp;
 			hpCount.text = hp.ToString();
 			AS.PlayOneShot(ACDC, 0.33f);
 			anims.SetBool("isHurt", true);
 			cameraFeed?.PlayFeedbacks();
+			hitUp.Play();
 		}
 		
 		if(other.transform.tag == "Experience")
 		{
+			rb.velocity = new Vector3(0,0,0);
 			if(other.transform.name == "ExpSmall(Clone)")
 			{
 			exp += 2;

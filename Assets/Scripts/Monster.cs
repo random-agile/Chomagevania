@@ -25,6 +25,7 @@ public class Monster : MonoBehaviour
 	int stunCooldown;
 	ParticleSystem hitFx;
 	
+	
 	void Start()
 	{
 		playerPos = GameObject.FindWithTag("Player").GetComponent<Transform>();
@@ -49,14 +50,14 @@ public class Monster : MonoBehaviour
 				spriteRenderer.color = Color.white;
 			}
 		}
-		else
-		{
-			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
-		}
+			else
+			{
+				transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
+			}
 		
 		spriteRenderer.flipX = playerPos.transform.position.x < this.transform.position.x;	
 	}
-    
+
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.transform.tag == "Weapon")
@@ -85,4 +86,5 @@ public class Monster : MonoBehaviour
 	{
 		Destroy(this.gameObject);
 	}
+
 }

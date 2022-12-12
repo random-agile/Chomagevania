@@ -14,7 +14,7 @@ public class PlayerMovements : MonoBehaviour
 	public MMFeedbacks cameraFeedstrong;
 	public ParticleSystem meditateStrong;
 	public AudioSource AS;
-	public AudioClip AC;
+	public AudioClip AC;	
 	
 	PlayerStats PS;
 	
@@ -76,6 +76,7 @@ public class PlayerMovements : MonoBehaviour
 			anims.SetBool("isPrep", true);
 			meditate = 0;
 		}
+
 		
 	}
 	void LateUpdate()
@@ -91,6 +92,7 @@ public class PlayerMovements : MonoBehaviour
 		meditateStrong.Play();
 		AS.PlayOneShot(AC, 1f);
 		PS.isMeditate = true;
+		spritix.flipX = false;
 	}
 		
 }

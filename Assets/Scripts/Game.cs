@@ -8,17 +8,20 @@ public class Game : MonoBehaviour
 {
 	public List<GameObject> monstersPref;
 
-	int cooldownSpawn;
+	public int cooldownSpawn;
 	public int cooldownRate;
 	Vector3 randomPos;
 	public int nombre;
 	public float timer;
 	public TextMeshProUGUI timerText;
+	int res;
+	public TextMeshProUGUI resText;
 	
 	
 	void Start()
 	{
-		Application.targetFrameRate = 60;
+		//Application.targetFrameRate = 60;
+		//Screen.SetResolution(1920, 1080, FullScreenMode.ExclusiveFullScreen, 60);
 	}
 	
     void Update()
@@ -39,19 +42,19 @@ public class Game : MonoBehaviour
 		    if(timer >= 60)
 		    {
 		    	randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
-		    	Instantiate(monstersPref[Random.Range(1,3)], randomPos, Quaternion.identity);
+		    	Instantiate(monstersPref[Random.Range(1,4)], randomPos, Quaternion.identity);
 		    	cooldownSpawn = 0;	
 		    }
 	    	else
 	    	{
 		    	randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
-		    	Instantiate(monstersPref[Random.Range(1,4)], randomPos, Quaternion.identity);
+		    	Instantiate(monstersPref[Random.Range(1,2)], randomPos, Quaternion.identity);
 		    	cooldownSpawn = 0;		    	    		
 	    	}
 	    }
 	    
 	    timer += Time.deltaTime;
-	    TimerDisplay(timer);
+		TimerDisplay(timer);
 
     }
 
@@ -73,6 +76,39 @@ public class Game : MonoBehaviour
 		}
 		
 		return randomNbr;
+	}
+	
+	public void ChangeRes()
+	{
+		res++;
+		switch(res)
+		{
+		case 1:
+			Screen.SetResolution(1280, 720, FullScreenMode.ExclusiveFullScreen, 60);
+			resText.text = "1280x720";
+			break;
+		case 2:
+			Screen.SetResolution(1366, 768, FullScreenMode.ExclusiveFullScreen, 60);
+			resText.text = "1366x768";
+			break;
+		case 3:
+			Screen.SetResolution(1920, 1080, FullScreenMode.ExclusiveFullScreen, 60);
+			resText.text = "1920x1080";
+			break;
+		case 4:
+			Screen.SetResolution(2560, 1440, FullScreenMode.ExclusiveFullScreen, 60);
+			resText.text = "2560x1440";			
+			break;
+		case 5:
+			Screen.SetResolution(2560, 1600, FullScreenMode.ExclusiveFullScreen, 60);
+			resText.text = "2560x1600";			
+			break;
+		case 6:
+			Screen.SetResolution(3840, 2160, FullScreenMode.ExclusiveFullScreen, 60);
+			resText.text = "3840x2160";
+			res = 0;
+			break;
+		}	
 	}
 }
     
