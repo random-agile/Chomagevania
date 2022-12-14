@@ -25,6 +25,7 @@ public class Skeleton : MonoBehaviour
 	int stunCooldown;
 	ParticleSystem hitFx;
 	
+	
 	void Start()
 	{
 		playerPos = GameObject.FindWithTag("Player").GetComponent<Transform>();
@@ -49,10 +50,10 @@ public class Skeleton : MonoBehaviour
 				spriteRenderer.color = Color.white;
 			}
 		}
-		else
-		{
-			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
-		}
+		else if(!PS.isStop)
+			{
+				transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
+			}
 		
 		spriteRenderer.flipX = playerPos.transform.position.x > this.transform.position.x;	
 	}
@@ -85,4 +86,5 @@ public class Skeleton : MonoBehaviour
 	{
 		Destroy(this.gameObject);
 	}
+	
 }
