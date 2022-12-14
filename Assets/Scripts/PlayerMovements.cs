@@ -76,9 +76,9 @@ public class PlayerMovements : MonoBehaviour
 			anims.SetBool("isPrep", true);
 			meditate = 0;
 		}
-
 		
 	}
+	
 	void LateUpdate()
 	{
 		otherPos = playerPos;

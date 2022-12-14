@@ -16,7 +16,7 @@ public class ExpBehaviour : MonoBehaviour
 	{
 		distance = Vector3.Distance(playerPos.position, transform.position);
 		
-		if(distance < 2)
+		if(distance < 1.5f)
 		{
 			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, 0.1f);
 		}

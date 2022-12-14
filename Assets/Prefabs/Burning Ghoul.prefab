@@ -130,9 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9839e45c3c0add14186c8e35064a64af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  hp: 50
   speed: 0.015
-  power: 5
+  power: 15
   defense: 1
   exp: 0
   gold: 0

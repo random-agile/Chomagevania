@@ -30,6 +30,7 @@ public class PlayerStats : MonoBehaviour
 	public int golds;
 	public int kills;
 	float exprests;
+	public bool isStop;
 	
 	
 	[Header("UI Elements")]
@@ -45,13 +46,18 @@ public class PlayerStats : MonoBehaviour
 	public AudioClip ACDe;
 	public AudioClip ACDC;
 	
+	public AudioSource ASBGM;
+	public AudioClip ABCD;
+	
 	[Header("Animations Effects")]
 	public Animator anims;
 	public MMFeedbacks cameraFeed;
+	public MMFeedbacks gameOverFeed;
 	public ParticleSystem powerUp;
 	public ParticleSystem hitUp;
 	
 	public Rigidbody rb;
+	public GameObject gameOver;
 	
 	
 	void Awake()
@@ -60,10 +66,12 @@ public class PlayerStats : MonoBehaviour
 		hpSlider.value = hp;
 		expSlider.maxValue = expMax;
 		expSlider.value = exp;
+		hpCount.text = hp.ToString();
 	}
 	
 	void Update()
 	{
+		
 		if(isMeditate)
 		{
 			meditateDamage = 10;
@@ -93,6 +101,7 @@ public class PlayerStats : MonoBehaviour
 			power +=1;
 			WeaponSpeed*=1.25f;
 		}
+
 	}
 	
 	void OnCollisionEnter(Collision other)
@@ -103,10 +112,16 @@ public class PlayerStats : MonoBehaviour
 			hp -= 5;
 			hpSlider.value = hp;
 			hpCount.text = hp.ToString();
-			AS.PlayOneShot(ACDC, 0.33f);
+			AS.PlayOneShot(ACDC, 0.25f);
 			anims.SetBool("isHurt", true);
 			cameraFeed?.PlayFeedbacks();
 			hitUp.Play();
+			if(hp <= 0)
+			{
+				Time.timeScale = 0f;
+				isStop = true;
+				GameOver();			
+			}
 		}
 		
 		if(other.transform.tag == "Experience")
@@ -125,6 +140,14 @@ public class PlayerStats : MonoBehaviour
 				AS.PlayOneShot(AC, 1f);
 			}
 		}
+	}
+	
+	void GameOver()
+	{
+		gameOverFeed?.PlayFeedbacks();
+		ASBGM.Stop();
+		ASBGM.PlayOneShot(ABCD);
+		gameOver.SetActive(true);
 	}
 
 }

@@ -50,7 +50,7 @@ public class Monster : MonoBehaviour
 				spriteRenderer.color = Color.white;
 			}
 		}
-			else
+		else if(!PS.isStop)
 			{
 				transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
 			}

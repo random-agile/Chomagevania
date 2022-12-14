@@ -101,7 +101,7 @@ MonoBehaviour:
   hp: 50
   speed: 0.02
   power: 5
-  defense: 4
+  defense: 5
   exp: 2
   gold: 0
   experience: {fileID: 1013381615350653158, guid: 542ec16b80fa7124280120491f029dfe, type: 3}

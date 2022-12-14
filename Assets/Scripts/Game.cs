@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -16,12 +17,13 @@ public class Game : MonoBehaviour
 	public TextMeshProUGUI timerText;
 	int res;
 	public TextMeshProUGUI resText;
+	public PlayerStats PS;
 	
 	
 	void Start()
 	{
-		//Application.targetFrameRate = 60;
-		//Screen.SetResolution(1920, 1080, FullScreenMode.ExclusiveFullScreen, 60);
+		Application.targetFrameRate = 60;
+		Screen.SetResolution(1920, 1080, FullScreenMode.ExclusiveFullScreen, 60);
 	}
 	
     void Update()
@@ -29,7 +31,7 @@ public class Game : MonoBehaviour
 		
 	    cooldownSpawn += Random.Range(1,5);
 	    
-	    if(cooldownSpawn >= cooldownRate)
+		if(cooldownSpawn >= cooldownRate && !PS.isStop)
 	    {	
 	    	if(Random.Range(1,100) == 25 && timer >= 60)
 	    	{
@@ -110,6 +112,18 @@ public class Game : MonoBehaviour
 			break;
 		}	
 	}
+	
+	public void Exit()
+	{
+		Application.Quit();
+	}
+	
+	public void Reset()
+	{
+		Time.timeScale = 1f;
+		SceneManager.LoadScene(0);
+	}
+	
 }
     
 
