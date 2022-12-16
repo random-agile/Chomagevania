@@ -29,7 +29,7 @@ public class Game : MonoBehaviour
     void Update()
 	{	
 		
-	    cooldownSpawn += Random.Range(1,5);
+		cooldownSpawn += Random.Range(0,2);
 	    
 		if(cooldownSpawn >= cooldownRate && !PS.isStop)
 	    {	

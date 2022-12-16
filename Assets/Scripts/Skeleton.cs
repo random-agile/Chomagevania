@@ -12,6 +12,8 @@ public class Skeleton : MonoBehaviour
 	public int defense;
 	public int exp;
 	public int gold;
+	public int stunResistance;
+	public int stayResistance;
 	
 	[Header("Miscs")]
 	Transform playerPos;
@@ -24,6 +26,7 @@ public class Skeleton : MonoBehaviour
 	bool isStun;
 	int stunCooldown;
 	ParticleSystem hitFx;
+	float distance;
 	
 	
 	void Start()
@@ -41,7 +44,7 @@ public class Skeleton : MonoBehaviour
 		if(isStun)
 		{
 			spriteRenderer.color = Color.red;
-			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed*-4);
+			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed*-PS.stunResistance);
 			stunCooldown++;
 			if(stunCooldown >= 10)
 			{
@@ -51,40 +54,91 @@ public class Skeleton : MonoBehaviour
 			}
 		}
 		else if(!PS.isStop)
-			{
-				transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
-			}
+		{
+			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
+		}
 		
-		spriteRenderer.flipX = playerPos.transform.position.x > this.transform.position.x;	
+		spriteRenderer.flipX = playerPos.transform.position.x < this.transform.position.x;
+		
+		distance = Vector3.Distance(playerPos.position, transform.position);
+		
+		if(distance > 20f)
+		{
+			Destroy(gameObject);
+		}
 	}
-    
+
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.transform.tag == "Weapon")
 		{
-			hitFx.Play();
-			isStun = true;
-			GameObject go = Instantiate(damagePops,transform.position, Quaternion.identity);
-			go.GetComponentInChildren<TextMesh>().text = (PS.power-defense + PS.meditateDamage).ToString();
-			hp -= (PS.power-defense) + PS.meditateDamage;
-			
-			if(hp <= 0)
+			switch(other.transform.name)
 			{
-				gameObject.GetComponent<SphereCollider>().enabled = false;
-				if(Random.Range(1,3) == 2)
+			case "Magic Ball":
+				PS.stunResistance = 4;
+				Hit();
+				break;
+			case "Magic Ball (1)":
+				PS.stunResistance = 4;
+				Hit();
+				break;	
+			case "Katana(Clone)":
+				PS.stunResistance = 8;
+				Hit();
+				break;
+			}
+		}
+		
+		else if(other.transform.tag == "Player")
+		{
+			PS.GetHit();
+		}
+	}
+	
+	void OnTriggerStay(Collider other)
+	{
+		if(other.transform.tag == "Weapon")
+		{
+			switch(other.transform.name)
+			{
+			case "Tornado(Clone)":
+				if(stayResistance >= PS.weaponStayCooldown && hp > 0)
 				{
-					Instantiate(experience,transform.position, Quaternion.identity);
+					stayResistance = 0;
+					PS.stunResistance = 0;
+					Hit();
 				}
-				PS.kills++;
-				killText.text = PS.kills.ToString();
-				anims.SetBool("isDead", true);
+				else
+				{
+					stayResistance++;
+				}
+				break;
 			}
 		}
 	}
 	
 	void EndGhost()
 	{
-		Destroy(this.gameObject);
+		Destroy(gameObject);
+		if(Random.Range(1,3) == 2)
+		{
+			Instantiate(experience,transform.position, Quaternion.identity);
+		}
 	}
 	
+	void Hit()
+	{
+		hitFx.Play();
+		isStun = true;
+		GameObject go = Instantiate(damagePops,transform.position, Quaternion.identity);
+		go.GetComponentInChildren<TextMesh>().text = (PS.power-defense + PS.meditateDamage).ToString();
+		hp -= (PS.power-defense) + PS.meditateDamage;
+			
+		if(hp <= 0)
+		{
+			PS.kills++;
+			killText.text = PS.kills.ToString();
+			anims.SetBool("isDead", true);
+		}
+	}
 }

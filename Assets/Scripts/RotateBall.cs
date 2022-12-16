@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class RotateBall : MonoBehaviour
 {
-	public Transform playerPos;
-	public float rotationSpeed = 20f;
+	Transform playerPos;
+	
+	[Header("Stats")]
+	public float wSpeed;
+	Vector3 wSize;
 	float meditateBoost;
 	
 	[Header("Sound")]
-	public AudioSource AS;
+	AudioSource AS;
 	public AudioClip AC;
 	PlayerStats PS;
 	
 	void Start()
 	{
+		playerPos = GameObject.FindWithTag("Player").GetComponent<Transform>();
 		PS = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+		AS = GameObject.Find("SE").GetComponent<AudioSource>();
 	}
 
 	void Update()
@@ -29,16 +34,15 @@ public class RotateBall : MonoBehaviour
 			meditateBoost = 1f;
 		}
 		
-		transform.RotateAround(playerPos.position, -Vector3.up, PS.WeaponSpeed * Time.deltaTime * meditateBoost);
+		transform.RotateAround(playerPos.position, -Vector3.up, wSpeed + PS.weaponSpeed * Time.deltaTime * meditateBoost);
 	}
 	
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.transform.tag == "Monster")
 		{
-			AS.PlayOneShot(AC, 0.125f);
+			AS.PlayOneShot(AC, 0.1f);
 		}
 	}
-	
 
 }

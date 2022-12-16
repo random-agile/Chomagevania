@@ -5,7 +5,6 @@ using MoreMountains.Feedbacks;
 
 public class PlayerMovements : MonoBehaviour
 {
-	public float speed = 0.1f;
 	public Animator anims;
 	public SpriteRenderer spritix;
 	Vector3 playerPos;
@@ -14,7 +13,8 @@ public class PlayerMovements : MonoBehaviour
 	public MMFeedbacks cameraFeedstrong;
 	public ParticleSystem meditateStrong;
 	public AudioSource AS;
-	public AudioClip AC;	
+	public AudioClip AC;
+	public GameObject flame;
 	
 	PlayerStats PS;
 	
@@ -26,32 +26,32 @@ public class PlayerMovements : MonoBehaviour
 		otherPos = transform.position;
 	}
 
-		void FixedUpdate()
+		void Update()
 	{	
 		playerPos = transform.position;
 		
 			if (Input.GetKey(KeyCode.UpArrow))
 			{
-				transform.position += new Vector3(0, 0, PS.speed);
+				transform.position += new Vector3(0, 0, PS.moveSpeed);
 				anims.SetBool("isWalk", true);
 			}
 
 			if (Input.GetKey(KeyCode.DownArrow))
 			{
-				transform.position += new Vector3(0, 0, -PS.speed);
+				transform.position += new Vector3(0, 0, -PS.moveSpeed);
 				anims.SetBool("isWalk", true);
 			}
 
 			if (Input.GetKey(KeyCode.LeftArrow))
 			{
-				transform.position += new Vector3(-PS.speed, 0, 0);
+				transform.position += new Vector3(-PS.moveSpeed, 0, 0);
 				anims.SetBool("isWalk", true);				
-				spritix.flipX = true;	
+				spritix.flipX = true;
 			}
 
 			if (Input.GetKey(KeyCode.RightArrow))
 			{
-				transform.position += new Vector3(PS.speed, 0, 0);
+				transform.position += new Vector3(PS.moveSpeed, 0, 0);
 				anims.SetBool("isWalk", true);
 				spritix.flipX = false;
 			}
@@ -71,7 +71,7 @@ public class PlayerMovements : MonoBehaviour
 			meditate++;
 		}
 		
-		if(meditate >= 240)
+		if(meditate >= PS.meditateCooldown)
 		{
 			anims.SetBool("isPrep", true);
 			meditate = 0;

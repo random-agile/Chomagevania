@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 5
-  speed: 0.015
+  speed: 0.01
   power: 20
   defense: 0
   exp: 2

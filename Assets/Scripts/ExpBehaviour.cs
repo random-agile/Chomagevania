@@ -6,27 +6,31 @@ public class ExpBehaviour : MonoBehaviour
 {
 	float distance;
 	Transform playerPos;
+	int dropdown;
+	PlayerStats PS;
 	
 	void Start()
 	{
 		playerPos = GameObject.FindWithTag("Player").GetComponent<Transform>();
+		PS = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
 	}
 
-	void FixedUpdate()
-	{
+	void Update()
+	{		
 		distance = Vector3.Distance(playerPos.position, transform.position);
 		
-		if(distance < 1.5f)
+		if(distance < PS.attractionPower)
 		{
 			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, 0.1f);
 		}
 	}
     
-	void OnCollisionEnter(Collision other)
+	void OnTriggerEnter(Collider other)
 	{
 		if(other.transform.tag == "Player")
 		{
-			Destroy(this.gameObject);
+			PS.GetExp();
+			Destroy(gameObject);			
 		}
 	}
 }
