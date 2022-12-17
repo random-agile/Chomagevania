@@ -58,7 +58,7 @@ public class Skeleton : MonoBehaviour
 			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
 		}
 		
-		spriteRenderer.flipX = playerPos.transform.position.x < this.transform.position.x;
+		spriteRenderer.flipX = playerPos.transform.position.x > this.transform.position.x;
 		
 		distance = Vector3.Distance(playerPos.position, transform.position);
 		
@@ -82,7 +82,7 @@ public class Skeleton : MonoBehaviour
 				PS.stunResistance = 4;
 				Hit();
 				break;	
-			case "Katana(Clone)":
+			case "Katana":
 				PS.stunResistance = 8;
 				Hit();
 				break;
@@ -101,11 +101,24 @@ public class Skeleton : MonoBehaviour
 		{
 			switch(other.transform.name)
 			{
-			case "Tornado(Clone)":
+			case "Tornado":
 				if(stayResistance >= PS.weaponStayCooldown && hp > 0)
 				{
 					stayResistance = 0;
 					PS.stunResistance = 0;
+					Hit();
+				}
+				else
+				{
+					stayResistance++;
+				}
+				break;
+				
+			case "FlameThrow":
+				if(stayResistance >= PS.weaponStayCooldown && hp > 0)
+				{
+					stayResistance = 0;
+					PS.stunResistance = 1;
 					Hit();
 				}
 				else
@@ -141,4 +154,5 @@ public class Skeleton : MonoBehaviour
 			anims.SetBool("isDead", true);
 		}
 	}
+
 }
