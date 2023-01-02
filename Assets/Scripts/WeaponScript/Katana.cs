@@ -25,7 +25,7 @@ public class Katana : MonoBehaviour
 
     void Update()
     {
-	    if(cooldown >= PS.weaponCooldown)
+	    if(cooldown >= PS.weaponCooldown && !PS.isStop)
 	    {
 	    	swordSlash.Play();
 	    	AS.PlayOneShot(AC, 0.1f);

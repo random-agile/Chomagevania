@@ -19,7 +19,6 @@ public class Game : MonoBehaviour
 	public TextMeshProUGUI resText;
 	public PlayerStats PS;
 	
-	
 	void Start()
 	{
 		Application.targetFrameRate = 60;

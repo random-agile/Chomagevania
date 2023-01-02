@@ -25,6 +25,8 @@ public class LevelUpSystem : MonoBehaviour
 	
 	PlayerStats PS;
 	
+	public GameObject LevelUpUI;
+	
 	
 	void Awake()
 	{		
@@ -33,16 +35,17 @@ public class LevelUpSystem : MonoBehaviour
 		passives = new List<string>();
 		passivesLvl = new List<int>();
 		PS = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+		LevelUpUI.SetActive(true);
+		LevelUpUI.SetActive(false);
 	}
 	
 	void Start()
 	{
-		AddNewWeapon("MagicBalls");
-		CheckLevelWeapon("MagicBalls");
-		LevelUpWeapon("MagicBalls", actualLevel);
-		AddNewPassive("HPMax");
-		CheckLevelPassive("HPMax");
-		LevelUpPassives("HPMax", actualLevel);
+		//CheckLevelWeapon("MagicBalls");
+		//LevelUpWeapon("MagicBalls", actualLevel);
+		//AddNewPassive("HPMax");
+		//CheckLevelPassive("HPMax");
+		//LevelUpPassives("HPMax", actualLevel);
 	}
 	
 	void AddNewWeapon(string weaponName)
@@ -314,5 +317,15 @@ public class LevelUpSystem : MonoBehaviour
 			}
 			break;
 		}
+	}
+	
+	//button public function onClick
+	
+	public void AddMagicBalls()
+	{
+		AddNewWeapon("MagicBalls");
+		LevelUpUI.SetActive(false);
+		Time.timeScale = 1f;
+		PS.isStop = false;
 	}
 }

@@ -66,6 +66,7 @@ public class PlayerStats : MonoBehaviour
 	public ParticleSystem hitUp;
 
 	public GameObject gameOver;
+	public GameObject levelUpUi;
 	
 	
 	void Awake()
@@ -98,9 +99,9 @@ public class PlayerStats : MonoBehaviour
 	
 	public void GetExp()
 	{
-			exp += 2;
-			expSlider.value = exp;
-			AS.PlayOneShot(AC, 1f);
+		exp += 2;
+		expSlider.value = exp;
+		AS.PlayOneShot(AC, 1f);
 	}
 	
 	public void GetHit()
@@ -139,6 +140,7 @@ public class PlayerStats : MonoBehaviour
 		moveSpeed += 0.001f;
 		power +=1;
 		weaponSpeed+=5f;
+		levelUpUi.SetActive(true);
 		Time.timeScale = 0f;
 		isStop = true;
 	}

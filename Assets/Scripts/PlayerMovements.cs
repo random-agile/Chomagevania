@@ -30,26 +30,26 @@ public class PlayerMovements : MonoBehaviour
 	{	
 		playerPos = transform.position;
 		
-			if (Input.GetKey(KeyCode.UpArrow))
+		if (Input.GetKey(KeyCode.UpArrow) && !PS.isStop)
 			{
 				transform.position += new Vector3(0, 0, PS.moveSpeed);
 				anims.SetBool("isWalk", true);
 			}
 
-			if (Input.GetKey(KeyCode.DownArrow))
+			if (Input.GetKey(KeyCode.DownArrow) && !PS.isStop)
 			{
 				transform.position += new Vector3(0, 0, -PS.moveSpeed);
 				anims.SetBool("isWalk", true);
 			}
 
-			if (Input.GetKey(KeyCode.LeftArrow))
+			if (Input.GetKey(KeyCode.LeftArrow) && !PS.isStop)
 			{
 				transform.position += new Vector3(-PS.moveSpeed, 0, 0);
 				anims.SetBool("isWalk", true);				
 				spritix.flipX = true;
 			}
 
-			if (Input.GetKey(KeyCode.RightArrow))
+			if (Input.GetKey(KeyCode.RightArrow) && !PS.isStop)
 			{
 				transform.position += new Vector3(PS.moveSpeed, 0, 0);
 				anims.SetBool("isWalk", true);
@@ -65,7 +65,7 @@ public class PlayerMovements : MonoBehaviour
 			meditateStrong.Stop();
 			PS.isMeditate = false;
 		}
-		else
+		else if(!PS.isStop)
 		{
 			anims.SetBool("isWalk", false);
 			meditate++;
