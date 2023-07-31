@@ -14,7 +14,9 @@ public class PlayerMovements : MonoBehaviour
 	public ParticleSystem meditateStrong;
 	public AudioSource AS;
 	public AudioClip AC;
+	public AudioClip FootStep;
 	public GameObject flame;
+	public GameObject hpslider;
 	
 	PlayerStats PS;
 	
@@ -24,6 +26,7 @@ public class PlayerMovements : MonoBehaviour
 		spritix = this.gameObject.GetComponent<SpriteRenderer>();
 		playerPos = transform.position;
 		otherPos = transform.position;
+		AS.PlayOneShot(FootStep, 0.25f);
 	}
 
 		void Update()
@@ -64,17 +67,23 @@ public class PlayerMovements : MonoBehaviour
 			meditate = 0;
 			meditateStrong.Stop();
 			PS.isMeditate = false;
+			hpslider.SetActive(false);
 		}
 		else if(!PS.isStop)
 		{
 			anims.SetBool("isWalk", false);
 			meditate++;
 		}
-		
+	
 		if(meditate >= PS.meditateCooldown)
 		{
 			anims.SetBool("isPrep", true);
 			meditate = 0;
+		}
+		
+		if(otherPos == playerPos)
+		{
+			hpslider.SetActive(true);
 		}
 		
 	}
