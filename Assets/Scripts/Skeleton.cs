@@ -44,7 +44,7 @@ public class Skeleton : MonoBehaviour
 		if(isStun)
 		{
 			spriteRenderer.color = Color.red;
-			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed*-PS.stunResistance);
+			//transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed*-PS.stunResistance);
 			stunCooldown++;
 			if(stunCooldown >= 10)
 			{
@@ -55,7 +55,7 @@ public class Skeleton : MonoBehaviour
 		}
 		else if(!PS.isStop)
 		{
-			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
+			//transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
 		}
 		
 		spriteRenderer.flipX = playerPos.transform.position.x > this.transform.position.x;

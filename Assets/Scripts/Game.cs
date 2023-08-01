@@ -22,7 +22,7 @@ public class Game : MonoBehaviour
 	void Start()
 	{
 		Application.targetFrameRate = 60;
-		Screen.SetResolution(1920, 1080, FullScreenMode.ExclusiveFullScreen, 60);
+		Screen.SetResolution(2560, 1600, FullScreenMode.ExclusiveFullScreen, 60);
 	}
 	
     void Update()
