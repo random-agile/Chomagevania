@@ -48,7 +48,7 @@ public class FlameThrow : MonoBehaviour
 			cooldown++;
 		}
 		
-		if(Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.LeftArrow))
+		/*if(Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.LeftArrow))
 		{
 			gameObject.transform.rotation = Quaternion.Euler(0,-45,0);
 		}
@@ -79,11 +79,7 @@ public class FlameThrow : MonoBehaviour
 		else if(Input.GetKey(KeyCode.RightArrow))
 		{
 			gameObject.transform.rotation = Quaternion.Euler(0,-270,0);
-		}
-		
-		
-		
-		
-	    
+		}*/
+			    
     }
 }

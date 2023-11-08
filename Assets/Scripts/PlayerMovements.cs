@@ -29,20 +29,20 @@ public class PlayerMovements : MonoBehaviour
 		void Update()
 	{	
 		playerPos = transform.position;
-		
-		if (Input.GetKey(KeyCode.UpArrow) && !PS.isStop)
-			{
-				transform.position += new Vector3(0, 0, PS.moveSpeed);
-				anims.SetBool("isWalk", true);
-			}
 
-			if (Input.GetKey(KeyCode.DownArrow) && !PS.isStop)
-			{
-				transform.position += new Vector3(0, 0, -PS.moveSpeed);
-				anims.SetBool("isWalk", true);
-			}
+		/*if (Input.GetKey(KeyCode.UpArrow) && !PS.isStop)
+		{
+			transform.position += new Vector3(0, 0, PS.moveSpeed);
+			anims.SetBool("isWalk", true);
+		}
 
-			if (Input.GetKey(KeyCode.LeftArrow) && !PS.isStop)
+		if (Input.GetKey(KeyCode.DownArrow) && !PS.isStop)
+		{
+			transform.position += new Vector3(0, 0, -PS.moveSpeed);
+			anims.SetBool("isWalk", true);
+		}*/
+
+		if (Input.GetKey(KeyCode.LeftArrow) && !PS.isStop)
 			{
 				transform.position += new Vector3(-PS.moveSpeed, 0, 0);
 				anims.SetBool("isWalk", true);				
@@ -68,14 +68,14 @@ public class PlayerMovements : MonoBehaviour
 		else if(!PS.isStop)
 		{
 			anims.SetBool("isWalk", false);
-			meditate++;
+			//meditate++;
 		}
 		
-		if(meditate >= PS.meditateCooldown)
+		/*if(meditate >= PS.meditateCooldown)
 		{
 			anims.SetBool("isPrep", true);
 			meditate = 0;
-		}
+		}*/
 		
 	}
 	
@@ -85,7 +85,7 @@ public class PlayerMovements : MonoBehaviour
 		anims.SetBool("isHurt", false);
 	}
 	
-	void PrepMed()
+	/*void PrepMed()
 	{
 		anims.SetBool("isMeditate", true);
 		cameraFeedstrong?.PlayFeedbacks();
@@ -93,7 +93,7 @@ public class PlayerMovements : MonoBehaviour
 		AS.PlayOneShot(AC, 1f);
 		PS.isMeditate = true;
 		spritix.flipX = false;
-	}
+	}*/
 		
 }
 

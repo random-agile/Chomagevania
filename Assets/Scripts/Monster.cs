@@ -27,9 +27,8 @@ public class Monster : MonoBehaviour
 	int stunCooldown;
 	ParticleSystem hitFx;
 	float distance;
-	
-	
-	void Start()
+
+    void Start()
 	{
 		playerPos = GameObject.FindWithTag("Player").GetComponent<Transform>();
 		PS = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
@@ -41,7 +40,9 @@ public class Monster : MonoBehaviour
 	
     void Update()
 	{
-		if(isStun)
+        transform.position += new Vector3(-speed, 0, 0);
+
+        if (isStun)
 		{
 			spriteRenderer.color = Color.red;
 			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed*-PS.stunResistance);
@@ -53,16 +54,16 @@ public class Monster : MonoBehaviour
 				spriteRenderer.color = Color.white;
 			}
 		}
-		else if(!PS.isStop)
+		/*else if(!PS.isStop)
 			{
 				transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
-			}
+			}*/
 		
 		spriteRenderer.flipX = playerPos.transform.position.x < this.transform.position.x;
 		
 		distance = Vector3.Distance(playerPos.position, transform.position);
 		
-		if(distance > 20f)
+		if(distance > 50f)
 		{
 			Destroy(gameObject);
 		}

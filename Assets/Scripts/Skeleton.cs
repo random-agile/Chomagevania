@@ -41,7 +41,9 @@ public class Skeleton : MonoBehaviour
 	
 	void Update()
 	{
-		if(isStun)
+        transform.position += new Vector3(-speed, 0, 0);
+
+        if (isStun)
 		{
 			spriteRenderer.color = Color.red;
 			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed*-PS.stunResistance);
@@ -53,10 +55,10 @@ public class Skeleton : MonoBehaviour
 				spriteRenderer.color = Color.white;
 			}
 		}
-		else if(!PS.isStop)
+		/*else if(!PS.isStop)
 		{
 			transform.position = Vector3.MoveTowards(transform.position, playerPos.transform.position, speed);
-		}
+		}*/
 		
 		spriteRenderer.flipX = playerPos.transform.position.x > this.transform.position.x;
 		

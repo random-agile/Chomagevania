@@ -34,7 +34,7 @@ public class RotateBall : MonoBehaviour
 			meditateBoost = 1f;
 		}
 		
-		transform.RotateAround(playerPos.position, -Vector3.up, wSpeed + PS.weaponSpeed * Time.deltaTime * meditateBoost);
+		transform.Rotate(-Vector3.up, wSpeed + PS.weaponSpeed * Time.deltaTime * meditateBoost);
 	}
 	
 	void OnTriggerEnter(Collider other)

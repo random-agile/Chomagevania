@@ -11,7 +11,7 @@ public class Game : MonoBehaviour
 
 	public int cooldownSpawn;
 	public int cooldownRate;
-	Vector3 randomPos;
+	Vector3 pos;
 	public int nombre;
 	public float timer;
 	public TextMeshProUGUI timerText;
@@ -34,22 +34,26 @@ public class Game : MonoBehaviour
 	    {	
 	    	if(Random.Range(1,100) == 25 && timer >= 60)
 	    	{
-		    	randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
-		    	Instantiate(monstersPref[0], randomPos, Quaternion.identity);
+		    	//randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
+				pos = new Vector3(20,0,0);
+		    	Instantiate(monstersPref[0], pos, Quaternion.identity);
 		    	cooldownSpawn = 0;
 		    
 	    	}
 	    	
 		    if(timer >= 60)
 		    {
-		    	randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
-		    	Instantiate(monstersPref[Random.Range(1,4)], randomPos, Quaternion.identity);
+
+                //randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
+                pos = new Vector3(20, 0, 0);
+                Instantiate(monstersPref[Random.Range(1,4)], pos, Quaternion.identity);
 		    	cooldownSpawn = 0;	
 		    }
 	    	else
 	    	{
-		    	randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
-		    	Instantiate(monstersPref[Random.Range(1,2)], randomPos, Quaternion.identity);
+                //randomPos = new Vector3(RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4),0,RandomExcept(-20,20,0,1,2,3,4,-1,-2,-3,-4));
+                pos = new Vector3(20, 0, 0);
+                Instantiate(monstersPref[Random.Range(1,2)], pos, Quaternion.identity);
 		    	cooldownSpawn = 0;		    	    		
 	    	}
 	    }
